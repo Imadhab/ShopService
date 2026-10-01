@@ -1,7 +1,9 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ShopService {
 
@@ -13,16 +15,19 @@ public class ShopService {
         this.orderRepo = orderRepo;
     }
 
-    public  void addOrder(int orderId , List<Integer> productsIds){
+    public  void addOrder(int orderId , Map<Integer, Integer> productsIds){
 
-        List<Product> products = new ArrayList<>();
-        for (int productId : productsIds){
+        Map<Product,Integer> products = new HashMap<>();
+        for (Map.Entry<Integer, Integer> entry : productsIds.entrySet()){
+            int productId = entry.getKey();
+            int quantity = entry.getValue();
+
             Product product = productRepo.getById(productId);
             if (product == null){
                 System.out.println("Product with ID" + productId + "not Found");
                 return;
             }
-            products.add(product);
+            products.put(product, 1);
         }
         Order order = new Order(orderId, products);
         orderRepo.add(order);
