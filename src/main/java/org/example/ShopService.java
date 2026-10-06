@@ -27,9 +27,9 @@ public class ShopService {
                 System.out.println("Product with ID" + productId + "not Found");
                 return;
             }
-            products.put(product, 1);
+            products.put(product, quantity);
         }
-        Order order = new Order(orderId, products);
+        Order order = new Order(orderId, products, OrderStatus.PROCESSING);
         orderRepo.add(order);
     }
 }
