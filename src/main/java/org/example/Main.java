@@ -22,11 +22,28 @@ public class Main {
         ShopService shopService = new ShopService(productRepo, orderRepo);
 
         shopService.addOrder(1, Map.of(1, 2,2,3));
+        shopService.addOrder(2, Map.of(2, 1,3,3));
+        shopService.addOrder(3, Map.of(1, 2,3,3));
         Order order = orderRepo.getById(1);
+
+        System.out.println(orderRepo.getAll());
+        List<Order> processingOrders = shopService.getOrdersByStatus(OrderStatus.PROCESSING);
+        System.out.println(processingOrders);
 
         System.out.println("Gesamtsumme:" + order.getTotalPrice() + "€");
 
-        System.out.println(orderRepo.getAll());
+//        System.out.println(orderRepo.getAll());
+
+//        shopService.addOrder(1, Map.of(1, 2,2,3));
+//        shopService.addOrder(2, Map.of(1, 2,3,4));
+//        shopService.addOrder(3, Map.of(1, 2,2,3));
+
+        shopService.updateOrder(1, OrderStatus.IN_DELIVERY);
+        System.out.println(orderRepo.getById(2));
+
+        // getAll() für alle Bestellungen
+//        System.out.println(orderRepo.getAll();
+
         }
     }
 
